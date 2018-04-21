@@ -14,19 +14,21 @@ import re
 
 
 def check_split_word(str):
-        codemode = re.compile(r'<（\S）*>([\s\S]*.)</（\S）*>')
-        tag=False
-        # print(text)
-        if(str.find(".")):
-            str_list=str.split(".")
-        if(str_list[1]==str_list[1].capitalize( )):
-            tag=True
-            return tag,str_list
-        else:
-            return tag,str
+    codemode = re.compile(r'<（\S）*>([\s\S]*.)</（\S）*>')
+    tag=False
+    str_list=[]
+    # print(text)
+    if(str.find(".")):
+        str_list=str.split(".")
+        if(len(str_list)>1):
+            check_str=str_list[len(str_list)-1].strip()
+            if(check_str==check_str.capitalize( )):
+                tag=True
+                str_list=[str.replace('.'+str_list[len(str_list)-1],''),check_str]
+                return tag,str_list
+    return tag,str
 
-
-tag,str=check_split_word('china.Evil')
+tag,str=check_split_word('not.Consider')
 print(tag,str)
 tag,str=check_split_word('china.evil')
 print(tag,str)

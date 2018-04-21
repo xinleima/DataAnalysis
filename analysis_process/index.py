@@ -15,6 +15,9 @@ django_tags_filename='./static/django_tags.csv'
 django_answers_filename='./static/django_answers.csv'
 django_answers_standard_filename='./static/django_answers_standard.csv'
 django_answers_keyword_tfidf_filename='./static/django_answers_keyword_tfidf.csv'
+python_tags_filename='./static/PythonTags.csv'
+python_answers_filename='./static/PythonAnswers.csv'
+python_questions_filename='./static/PythonQuestions.csv'
 
 
 
@@ -51,5 +54,7 @@ def store_db_collection(db, filename, collection_name):
 
 if __name__ == '__main__':
     db = get_connection_mongodb(database_config)
-    store_db_collection(db, questions_filename, 'questions')
-    store_db_collection(db, answers_filename, 'answers')
+    store_db_collection(db, python_tags_filename, 'python_tags')
+    store_db_collection(db, python_answers_filename, 'python_answers')
+    store_db_collection(db, python_questions_filename, 'python_questions')
+
