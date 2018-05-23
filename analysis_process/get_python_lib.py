@@ -108,4 +108,5 @@ def get_django_lib():
 
 
 if __name__ == '__main__':
-    print_array(get_django_lib())
+    items = get_standard_lib()
+    print_array([item for item in items if item[0] == 'built-in'])
