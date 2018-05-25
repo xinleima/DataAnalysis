@@ -167,5 +167,6 @@ def get_django_list():
 
 if __name__ == '__main__':
     for item in get_standard_list():
-        if item[1] == 'built-in':
-            print(item)
+        # if item[1] == 'built-in':
+        print(item)
+    # print(get_standard_list())
