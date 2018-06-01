@@ -8,8 +8,8 @@ english_punctuations = [',', '.', ':', ';', '?', '(', ')', '[', ']', '&', '!', '
 bad_code_word = ['/code', 'code', 'ul', '/ul', 'li', '/li', 'b', '/b', 'p', '/p', 'n\'t', "\'\'", "/pre", "pre", "\'",
                  "``", "\'s", "\'m", 'use', '=']
 bad_noun_word = ['data', 'it', 'item', 'example', 'id', 'user', 'name', 'max_length', 'text', 'false', 'default', 'us',
-                 'dev', 'task', 'block', 'code', 'detail', 'comment', 'e.g', 'em', 'strong']
-code_lan = ["python", "c", "java", "c#", "js", "html", "css", "php", "javascrip", "script","sql","mysql","oracle"]
+                 'dev', 'task', 'block', 'code', 'detail', 'comment', 'e.g', 'em', 'strong','br','blockquot']
+code_lan = ["python", "c", "java", "c#", "js", "html", "css", "php", "javascrip", "script","sql","mysql","oracle","linux"]
 python_artifactor = ["django", "flask"]
 codemode = re.compile(r'<pre><code>([\s\S]*?)</code></pre>')
 linkmode = re.compile(r'<a href=\"([\s\S]*?)">')

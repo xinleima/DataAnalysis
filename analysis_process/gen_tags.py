@@ -23,19 +23,13 @@ class TagsGenerator(object):
         language, architure, title_filter = data_process.parse_title(input_title)
 
         title_tags = list(set(language) | set(architure) | set(title_filter))
-        # print('title_tags', title_tags)
 
         tfidf_tags = self.gen_tfidf_tags(plain_text)
-        # print('tfidf_tags', tfidf_tags)
 
         code_import_tags, code_find_tags = self.gen_code_tags(codes, 'django' in architure)
-        # print('code_import_tags', code_import_tags)
-        # print('code_find_tags', code_find_tags)
 
         title_topic_model_tags = self.gen_title_topic_model_tags(title_filter)
         body_topic_model_tags = self.gen_body_topic_model_tags(plain_text)
-        # print('title_topic_model_tags', title_topic_model_tags)
-        # print('body_topic_model_tags', body_topic_model_tags)
 
         intersection_tags = collections_utils.intersect_list([title_tags,
                                                               tfidf_tags,
@@ -43,12 +37,6 @@ class TagsGenerator(object):
                                                               code_find_tags,
                                                               title_topic_model_tags,
                                                               body_topic_model_tags])
-        # print('intersection_tags', intersection_tags)
-        # intersection_tags = collections_utils.intersect_list([title_tags,
-        #                                                       tfidf_tags,
-        #                                                       code_import_tags,
-        #                                                       code_find_tags,
-        #                                                       ])
 
         return collections_utils.remove_empty(intersection_tags), \
                collections_utils.remove_empty(title_tags), \

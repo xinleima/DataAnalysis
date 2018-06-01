@@ -184,10 +184,33 @@ def score():
                 col.update({'_id': item['_id']},
                        {'$set': {'recall_score': recall_score}})
             else:
-                continue
+                col.update({'_id': item['_id']},
+                           {'$set': {'recall_score': None}})
             if idx % 1000 == 0:
                 print(idx)
 
+def simple_score():
+    db = mongodb_utils.get_connection()
+    col = db['python_standard_test']
+    total_num = 0
+    total_score = 0
+
+    with col.find(no_cursor_timeout=True) as items:
+        for idx, item in enumerate(items):
+            predicted_tags = item['predicted_tags']
+            all_tag = predicted_tags['all']
+            tag_list = item['Tag']
+            title = item['question_Title']
+            tag_list = [label.lower() for label in tag_list]
+            simple_recall_score = recall(tag_list, all_tag)
+            col.update({'_id': item['_id']},
+                        {'$set': {'simple_recall_score': simple_recall_score}})
+            total_num+=1
+            total_score+=simple_recall_score
+            if idx % 1000 == 0:
+                print(idx)
+
+    print(total_score/total_num)
 
 
 def recall(manual_tag_list, all_recommend_tags):
@@ -199,6 +222,30 @@ def recall(manual_tag_list, all_recommend_tags):
                 break
     return cover_tags_sum / len(manual_tag_list)
 
+def aveg_recall():
+    db = mongodb_utils.get_connection()
+    col = db['python_standard_test']
+    total_num = 0
+    total_score= 0
+
+    # with col.find({"recall_score": {"$exists": False}})as items:
+    #     for idx, item in enumerate(items):
+    #         col.update({'_id': item['_id']},
+    #                    {'$set': {'recall_score': None}})
+    # print("ok")
+
+    with col.find(no_cursor_timeout=True) as items:
+        for idx, item in enumerate(items):
+            if item["recall_score"]:
+                recall_score=item["recall_score"]
+                total_score+=recall_score
+                total_num += 1
+            if idx % 1000 == 0:
+                print(idx)
+    aveg_recall=total_score/total_num
+    print(aveg_recall)
+
 
 if __name__ == '__main__':
-    score()
+    # simple_score()
+    aveg_recall()
